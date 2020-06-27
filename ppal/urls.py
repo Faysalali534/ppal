@@ -15,7 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import url, include
+from ppal.views import PayPalProcessPayment, PayPalPaymentCancel, PayPalPaymentReturn
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    url(r'^process-payment/$', PayPalProcessPayment.as_view(), name='return'),
+    url(r'^paypal-return/$', PayPalPaymentReturn.as_view(), name='return'),
+    url(r'^paypal-cancel/$', PayPalPaymentCancel.as_view(), name='cancel'),
+
+    url(r'^paypal/', include('paypal.standard.ipn.urls')),
+
+    # Need this url to be secure and un trackable
+    # this is the ipn url
+
+
+    # url(r'^admin/', include(admin.site.urls)),
 ]

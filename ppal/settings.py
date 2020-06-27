@@ -37,7 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'paypal.standard.ipn',
 ]
+
+PAYPAL_RECIEVER_EMAIL = 'sb-glsoy2403765_api1.business.example.com'
+PAYPAL_PW = 'CGEUVWC8MJJLHRAV'
+PAYPAL_SIGNATURE = 'A1ge8-loudhNrKddKNGrK3PpQBT1AhSmDHU2Ov1c2cjMIxJqI0Y0-zRZ'
+
+PAYPAL_SANDBOX_URL = 'https://api-3t.sandbox.paypal.com/nvp'
+PAYPAL_LIVE_URL = 'https://api-3t.paypal.com/nvp'
+
+PROCESS_PAYMENT_URL_SANDBOX = 'https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token={}'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
