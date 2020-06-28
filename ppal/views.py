@@ -22,6 +22,9 @@ class PayPalProcessPayment(APIView):
 			email = request_data.get('email', '')
 			amount = float(request_data.get('amount', '0'))
 			version = 93
+
+			# need to store amount and version in database along with TOKEN to get the values in return url
+
 			data = {
 				'USER': settings.PAYPAL_RECIEVER_EMAIL,
 				'PWD': settings.PAYPAL_PW,
@@ -49,13 +52,17 @@ class PayPalPaymentReturn(APIView):
 		try:
 			request_data = request.GET
 			TOKEN = request_data.get('token')
+
+			version = 93
+			amount = 100
+
 			data = {
 				'USER': settings.PAYPAL_RECIEVER_EMAIL,
 				'PWD': settings.PAYPAL_PW,
 				'SIGNATURE': settings.PAYPAL_SIGNATURE,
 				'SUBJECT': 'm.qasim.nu@hotmail.com',
 				'METHOD': 'GetExpressCheckoutDetails',
-				'VERSION': 93,
+				'VERSION': version,
 				'TOKEN': TOKEN
 			}
 
@@ -69,11 +76,11 @@ class PayPalPaymentReturn(APIView):
 				'SIGNATURE': settings.PAYPAL_SIGNATURE,
 				'SUBJECT': 'm.qasim.nu@hotmail.com',
 				'METHOD': 'DoExpressCheckoutPayment',
-				'VERSION': 93,
+				'VERSION': version,
 				'TOKEN': TOKEN,
 				'PAYERID': payerID,
 				'PAYMENTREQUEST_0_PAYMENTACTION': 'SALE',
-				'PAYMENTREQUEST_0_AMT': 100,
+				'PAYMENTREQUEST_0_AMT': amount,
 				'PAYMENTREQUEST_0_CURRENCYCODE': 'USD',
 			}
 
