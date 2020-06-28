@@ -53,6 +53,7 @@ class PayPalPaymentReturn(APIView):
 			request_data = request.GET
 			TOKEN = request_data.get('token')
 
+			# get from database
 			version = 93
 			amount = 100
 
